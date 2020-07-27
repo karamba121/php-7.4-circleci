@@ -1,20 +1,11 @@
-FROM php:7.4-apache
+FROM php:7.4-fpm
 
-RUN docker-php-ext-install mysql mysqli
-
-RUN apt-get update -y && apt-get install -y sendmail libpng-dev
-
-RUN apt-get update && \
-    apt-get install -y \
-        zlib1g-dev 
-
-RUN docker-php-ext-install mbstring
-
-RUN docker-php-ext-install zip
+RUN apt-get update -y && apt-get install -y libpng-dev zip
 
 RUN docker-php-ext-install gd
 
 RUN pecl install grpc
+
 RUN mkdir -p /tmp/protoc && \
     curl -L https://github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip > /tmp/protoc/protoc.zip && \
     cd /tmp/protoc && \
